@@ -68,7 +68,7 @@ services:
     environment:
       OLLAMA_HOST: http://ollama:11434
     entrypoint: ["/bin/sh", "-c"]
-    command: ["ollama pull ${OLLAMA_MODEL:-llama3.1:8b}"]
+    command: ["ollama pull ${OLLAMA_MODEL:-llama3.2:3b}"]
     networks:
       - naru-network
     restart: "no"
@@ -81,7 +81,7 @@ services:
     container_name: naru-backend
     restart: unless-stopped
     environment:
-      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.1:8b}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:3b}
       OLLAMA_BASE_URL: http://ollama:11434
       MYSQL_HOST: mysql
       MYSQL_PORT: 3306

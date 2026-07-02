@@ -46,7 +46,7 @@ Browser (React + Vite)
       └── retrieve_learned()     ← learned_solutions.csv FAISS
                   │
                   ▼
-           Ollama (llama3.1:8b)
+           Ollama (llama3.2:3b)
                   │
                   ▼
               MySQL
@@ -104,8 +104,10 @@ Sage-Chat-bot/
 # Install and start
 ollama serve
 
-# Pull the model
-ollama pull llama3.1:8b
+# Pull the model (llama3.2:3b is a lighter, faster option for CPU-only
+# laptops; swap for llama3.1:8b if you have the hardware and want higher
+# answer quality)
+ollama pull llama3.2:3b
 ```
 
 ### 2. MySQL
@@ -191,7 +193,8 @@ docker compose up -d --build
 First run will: build the backend/frontend images, start MySQL and
 auto-run `database/schema.sql` (creates `chat_history` and
 `learned_solutions` tables), start Ollama, and run a one-shot
-`ollama-pull` sidecar that downloads `llama3.1:8b`. The model pull can take
+`ollama-pull` sidecar that downloads the model set by `OLLAMA_MODEL` in
+`.env` (defaults to `llama3.2:3b`). The model pull can take
 several minutes depending on your connection — the backend will start in
 parallel but chat responses will fail until the pull finishes.
 
@@ -200,7 +203,7 @@ parallel but chat responses will fail until the pull finishes.
 | Service | Check |
 |---|---|
 | **mysql** | `docker compose ps mysql` should show `healthy`. Or: `docker compose exec mysql mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "SHOW TABLES;" ai_chatbot` — should list `chat_history` and `learned_solutions`. |
-| **ollama** | `docker compose ps ollama` should show `healthy`. Or: `curl http://localhost:11434/api/tags` — should return JSON. Confirm the model downloaded: `docker compose exec ollama ollama list` should include `llama3.1:8b`. |
+| **ollama** | `docker compose ps ollama` should show `healthy`. Or: `curl http://localhost:11434/api/tags` — should return JSON. Confirm the model downloaded: `docker compose exec ollama ollama list` should include `llama3.2:3b` (or whatever `OLLAMA_MODEL` is set to). |
 | **backend** | `curl http://localhost:5001/` → `Sage Chatbot is running`. Then `curl -X POST http://localhost:5001/chat -H "Content-Type: application/json" -d '{"message":"hi","session_id":"test"}'` should return a JSON answer. |
 | **frontend** | Open `http://localhost:5173` in a browser — the chat UI should load and sending a message should get a reply (proxied through nginx to the backend). |
 
