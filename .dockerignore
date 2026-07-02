@@ -1,0 +1,9 @@
+.git
+.gitignore
+.env
+.DS_Store
+README.md
+frontend
+backend/vector_store/*.index
+**/__pycache__
+**/*.pyc

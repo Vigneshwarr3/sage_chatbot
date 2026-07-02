@@ -1,0 +1,18 @@
+# Environment / secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+
+# FAISS vector store (auto-generated)
+backend/vector_store/*.index
+
+# macOS
+.DS_Store

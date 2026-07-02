@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 
-const API_BASE = "http://localhost:5001";
+// Relative path: proxied to the backend by Vite (dev) or nginx (Docker/prod).
+const API_BASE = "";
 
 const SUGGESTIONS = [
   "My internet is not connecting",

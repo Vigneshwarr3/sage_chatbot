@@ -1,9 +1,0 @@
-__pycache__/
-*.pyc
-*.pyo
-.env
-backend/vector_store/
-node_modules/
-dist/
-.DS_Store
-*.index
